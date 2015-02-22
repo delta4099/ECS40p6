@@ -1,0 +1,8 @@
+Design error: Directory or File in list.h found.
+Design error: Directory is not a derived class of File.
+Design error: List <File> sub in directory.h not found.
+Design error: time in private section in File not found.
+Design error: name in protected section in File not found.
+Design error: permission in protected section in File not found.
+Design error: Exactly 13 public entries in file.h not found.
+Design error: Compile time casting found.

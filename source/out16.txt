@@ -1,0 +1,4 @@
+/ # touch: Command not found. 
+/ # cp: cannot stat ‘a’: No such file or directory 
+Try 'cp --help' for more information. 
+/ # / # 

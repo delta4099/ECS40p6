@@ -14,7 +14,7 @@ class Funix
   void chown(int argCount, const char *arguments[]);
   int eXit(int argCount, const char *arguments[]);
     // checks "exit" command, returns 0 on proper exit
-  void getCommand(char *command);  
+  void getCommand(char *command) const;  
     // writes prompt and reads command
   int processCommand(char *command);  // returns 0 on proper exit
   void setUmask(int argCount, const char *arguments[]);

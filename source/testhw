@@ -1,0 +1,120 @@
+#! /bin/bash
+
+testingDirectory=/home/ssdavis/40/p6/P6testing
+if [ $# -ne 1 ]; then
+  echo "testhw usage: testhw funix_src_directory"
+  exit
+fi
+
+cd $1
+rm -f *.out *.o &> /dev/null
+rm -f *Results.txt &> /dev/null
+
+echo -n "Scores from p6 for " > finalResults.txt
+
+if [ -e authors.txt ]; then
+  awk {'for (i = 2; i <= NF; ++i) printf"%s ", $i'} authors.txt >> finalResults.txt
+  echo -e "\n"
+  awk 'NR < 3 {for (i = 2; i <= NF; ++i) printf"%s", $i; printf"\n";}' authors.txt > names.txt
+  awk {'printf"%s ", $1'} authors.txt > addresses
+else
+  echo  "You need to create an authors.txt file!!!! No one will receive credit for this assignment"  >> finalResults.txt
+  echo "$1@ucdavis.edu" > addresses
+  finger ${PWD##*/} | awk 'NR == 1 {printf"%s,%s", $5, $4}' > names.txt
+fi
+
+
+echo -en "\nAddresses used: " >> finalResults.txt 
+
+cat addresses >> finalResults.txt
+echo " " >> finalResults.txt
+
+warningScore=0
+styleScore=0
+designScore=0
+operationsScore=0 
+
+make &> makeOutput
+
+if [ -e funix.out ]; then
+  grep warning makeOutput >& warningResults.txt
+  warningScore=$(cat warningResults.txt | wc -l)
+  operationsScore=$( $testingDirectory/p6Tester.sh $PWD)
+  /home/ssdavis/40/cppChecker.sh $PWD | awk '/Processing/,/Violated File Details/' > styleResults.txt
+  designErrors=$( $testingDirectory/p6DesignChecker.sh $PWD )
+  styleScore=$( awk '/Total Errors Occurs/ {printf"%d\n", 10 - $6}' styleResults.txt ) 
+
+  if [[ $styleScore -lt 0 ]]; then
+    styleScore=0
+  fi
+
+  if [[ $designErrors -eq 0 ]]; then
+    echo "No design errors."  >> designResults.txt
+    designScore=14
+  fi
+
+  echo "Style: $styleScore out of 10" >> finalResults.txt
+  echo "Design: $designScore out of 14" >> finalResults.txt
+  echo "Operation: $operationsScore out of 26" >> finalResults.txt
+  echo "Warnings (subtracted from design down to zero design score): $warningScore"  >> finalResults.txt
+
+  if [ $warningScore -gt $designScore ]; then
+     warningScore=$designScore
+  fi
+   
+
+  if [[ $designErrors -gt 0 ]]; then
+    echo 'You had multi-line comments, non-template List class, compile time casting, ' >> finalResults.txt
+    echo 'File::name not protected, File::time not private, ' >> finalResults.txt
+    echo 'File::permissions not protected, or Directory::subdirectories not a List<File>' >> finalResults.txt 
+    echo 'so you will receive a score of zero.' >> finalResults.txt
+    finalScore=0
+  else 
+    finalScore=$(($styleScore + $designScore + $operationsScore - $warningScore))
+  fi
+
+  echo "Total: $finalScore out of 50.">> finalResults.txt
+  if [ ! -s warningResults.txt ]; then
+    echo "No warnings." > warningResults.txt
+  fi
+
+#  mailx -s "ECS 40 P6 Test Results" -a designResults.txt -a operationsResults.txt \
+#   -a styleResults.txt -a warningResults.txt `cat addresses` < finalResults.txt
+else  # No funix.out
+  /home/ssdavis/40/cppChecker.sh $PWD | awk '/Processing/,/Violated File Details/' > styleResults.txt
+  styleScore=$( awk '/Total Errors Occurs/ {printf"%d\n", 10 - $6}' styleResults.txt )
+  designErrors=$($testingDirectory/p6DesignChecker.sh $PWD )
+  if [[ $designErrors -eq 0 ]]; then
+    echo "No design errors."  >> designResults.txt
+    designScore=14
+  fi
+
+  echo 'No funix.out' >> finalResults.txt
+  echo "Style: $styleScore out of 10" >> finalResults.txt
+  echo "Design: $designScore out of 14" >> finalResults.txt
+
+  if [[ $designErrors -gt 0 ]]; then
+    echo 'You had multi-line comments, non-template List class, compile time casting, ' >> finalResults.txt
+    echo 'File::name not protected, File::time not private, ' >> finalResults.txt
+    echo 'File::permissions not protected, or Directory::subdirectories not a List<File>' >> finalResults.txt
+    echo 'so you will receive a score of zero.' >> finalResults.txt
+    finalScore=0
+  else
+    echo "So only designScore."  >> finalResults.txt
+    finalScore=$designScore
+  fi
+
+  echo "Total: $finalScore out of 50" >> finalResults.txt
+#  mailx -s "ECS 40 P6 Test Results" -a designResults.txt -a styleResults.txt `cat addresses` < finalResults.txt
+#  styleScore=0 
+fi  # else no funix.out
+
+# awk 'NR == 1 {printf"%s,", $0}' names.txt >> ../results.csv
+#echo " ${1%%/}, $styleScore, $designScore, $operationsScore, $warningScore, $finalScore" >> ../results.csv
+#authorCount=$(grep "@" authors.txt | wc -l)
+
+#if [ $authorCount -gt 1 ]; then
+#  awk 'NR == 2 {printf"%s,", $0}' names.txt >> ../results.csv
+#  echo "${1%%/}, $styleScore, $designScore, $operationsScore, $warningScore, $finalScore" >> ../results.csv
+#fi
+

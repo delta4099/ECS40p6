@@ -1,0 +1,5 @@
+/ # touch: Command not found. 
+/ # chmod: cannot access ‘a’: No such file or directory 
+/ # chmod: cannot access ‘b’: No such file or directory 
+/ # chmod: cannot access ‘c’: No such file or directory 
+/ # / # 

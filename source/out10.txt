@@ -1,0 +1,6 @@
+/ # / # / # / # / # / # / # / # / # / # rwxr-xr-x Feb a 
+rw-r-xr-- Feb b 
+r---wx-w- Feb c 
+-w---x--- Feb d 
+rwxr-xr-x Feb e 
+/ # 

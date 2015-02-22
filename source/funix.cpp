@@ -86,7 +86,7 @@ int Funix::eXit(int argCount, const char *arguments[])
   return 0;
 }  // eXit()
 
-void Funix::getCommand(char *command)  // writes prompt and reads command
+void Funix::getCommand(char *command) const // writes prompt and reads command
 {
   writePrompt();
   cin.getline(command, COMMAND_LENGTH);

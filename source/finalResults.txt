@@ -1,0 +1,11 @@
+Scores from p6 for Davis,Sean Davis,Steve 
+Addresses used: ssdavis@ucdavis.edu davis@cs.ucdavis.edu   
+Style: 10 out of 10
+Design: 0 out of 14
+Operation: 17 out of 26
+Warnings (subtracted from design down to zero design score): 0
+You had multi-line comments, non-template List class, compile time casting, 
+File::name not protected, File::time not private, 
+File::permissions not protected, or Directory::subdirectories not a List<File>
+so you will receive a score of zero.
+Total: 0 out of 50.

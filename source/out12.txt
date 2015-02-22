@@ -1,0 +1,5 @@
+/ # / # / # / # / # / # / # / # / # --x-w--wx Feb a 
+-wxr--r-x Feb b 
+r--r-xrw- Feb c 
+r-xrw-rwx Feb d 
+/ # 

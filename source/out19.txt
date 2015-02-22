@@ -1,0 +1,11 @@
+/ # / # chown: missing operand 
+Try 'chown --help' for more information. 
+/ # chown: missing operand after ‘sean’ 
+Try 'chown --help' for more information. 
+/ # chown: Too many arguments. 
+Try 'chown --help' for more information. 
+/ # chown: cannot access ‘c’: No such file or directory 
+/ # chown: user unknownUser does not exist 
+/ # / # chown: Permission denied 
+/ # rwxr-xr-x Feb a 
+/ # 

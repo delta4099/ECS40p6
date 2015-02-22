@@ -1,0 +1,9 @@
+/ # chmod: missing operand 
+Try 'chmod --help' for more information. 
+/ # chmod: cannot access ‘a’: No such file or directory 
+/ # / # chmod: cannot access ‘c’: No such file or directory 
+/ # / # / # / # / # / # / # /e/ # /e/ # ls: cannot open directory .: Permission denied 
+/e/ # / # d: Permission denied. 
+/ # / # /f/ # mkdir: cannot create directory ‘h’: Permission denied 
+/f/ # 
+/f/ # 

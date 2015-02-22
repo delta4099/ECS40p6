@@ -1,0 +1,6 @@
+/ # / # / # touch: Command not found.
+/ # /b/ # /b/ # /b/h/ # /b/h/ # /b/h/ # /b/h/ # /b/h/ # /b/h/ # /b/h/ # touch: Command not found.
+/b/h/ # chmod: cannot access ‘r’: No such file or directory
+/b/h/ # chown: cannot access ‘s’: No such file or directory
+/b/h/ # /b/ # / # /c/ # /c/ # touch: Command not found.
+/c/ # 

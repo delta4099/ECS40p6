@@ -1,0 +1,25 @@
+Processing :  /home/mwong296/ECS40p6/source/directory.cpp
+Processing :  /home/mwong296/ECS40p6/source/directory.h
+Processing :  /home/mwong296/ECS40p6/source/funix.cpp
+Processing :  /home/mwong296/ECS40p6/source/funix.h
+Processing :  /home/mwong296/ECS40p6/source/list.cpp
+Processing :  /home/mwong296/ECS40p6/source/list.h
+Processing :  /home/mwong296/ECS40p6/source/main.cpp
+Processing :  /home/mwong296/ECS40p6/source/permissions.cpp
+Processing :  /home/mwong296/ECS40p6/source/permissions.h
+Processing :  /home/mwong296/ECS40p6/source/Time.cpp
+Processing :  /home/mwong296/ECS40p6/source/Time.h
+
+
+=================================== Summary Report ===================================
+ ** Total Available Rules     : 52
+ ** Total Applied Rules       : 34
+ ** Total Violated Rules      : 0
+ ** Total Errors Occurs       : 0
+ ** Total Analyzed Files      : 11
+ ** Total Violated Files Count: 0
+ ** Build Quality             : 100.00%
+
+================================ Violated Rule Details ===============================
+
+================================ Violated File Details ===============================

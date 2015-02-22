@@ -1,0 +1,4 @@
+/ # mkdir: missing operand 
+Try 'mkdir --help' for more information. 
+/ # / # mkdir: cannot create directory ‘a’: File exists 
+/ # 

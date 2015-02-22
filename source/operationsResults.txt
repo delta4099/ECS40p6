@@ -1,0 +1,239 @@
+1:OK
+2:OK
+3:OK
+4:OK
+5:OK
+6:OK
+7:OK
+8:OK
+9:OK
+10:OK
+11:OK
+12:OK
+13:
+Differences on  input13.txt
+/ # cp: missing file operand 
+Try 'cp --help' for more information. 
+/ # / # cp: ‘a’ and ‘a’ are the same file 
+/ # cp: 'a' already exists. 
+/ # / # cp: 'b' already exists. 
+/ # Too many operands 
+Try 'cp --help' for more information. 
+/ # / # cp: cannot open ‘a’ for reading: Permission denied 
+/ # 
+
+Seans:
+/ # cp: missing operand 
+Try 'cp --help' for more information. 
+/ # / # cp: ‘a’ and ‘a’ are the same file 
+/ # cp: 'a' already exists. 
+/ # / # cp: 'b' already exists. 
+/ # Too many operands 
+Try 'cp --help' for more information. 
+/ # / # cp: cannot open ‘a’ for reading: Permission denied 
+/ # 
+14:OK
+15:
+Differences on  input15.txt
+/ # / # /a/ # /a/ # touch: Command not found. 
+/a/ # /a/ # / # / # /f/ # rwxr-xr-x Feb b 
+rwxr-xr-x Feb e 
+/f/ # 
+
+Seans:
+/ # / # /a/ # /a/ # /a/ # /a/ # / # / # /f/ # rwxr-xr-x Feb b 
+rw-r--r-- Feb c 
+rwxr-xr-x Feb e 
+/f/ # 
+16:
+Differences on  input16.txt
+/ # touch: Command not found. 
+/ # cp: cannot stat ‘a’: No such file or directory 
+Try 'cp --help' for more information. 
+/ # / # 
+
+Seans:
+/ # / # / # rw-r--r-- Feb a 
+rw-r--r-- Feb b 
+/ # 
+17:OK
+18:OK
+19:OK
+20:OK
+21:
+Differences on  input21.txt
+/ # touch: Command not found. 
+/ # / # / # touch: Command not found. 
+/ # / # / # b: Permission denied. 
+/ # touch: Command not found. 
+/ # / # touch: Command not found. 
+/ # cd: d: No such file or directory 
+/ # 
+
+Seans:
+/ # touch: missing operand 
+Try 'touch --help' for more information. 
+/ # / # / # / # / # / # b: Permission denied. 
+/ # / # / # / # d: Not a directory. 
+/ # 
+22:
+Differences on  input22.txt
+/ # / # touch: Command not found. 
+/ # touch: Command not found. 
+/ # touch: Command not found. 
+/ # 
+
+Seans:
+/ # / # / # / # / # 
+23:
+Differences on  input23.txt
+Yours:
+/ # / # cd: b: No such file or directory 
+/ # cd: h: No such file or directory 
+/ # / # / # / # cd: c: No such file or directory 
+/ # / # 
+
+Seans:
+/ # rwxr-xr-x Feb a 
+rwxr-xr-x Feb b 
+rwxr-xr-x Feb c 
+rwxr-xr-x Feb f 
+/ # /b/ # /b/h/ # rwxrwxrwx Feb j 
+--x-w--wx second Feb k 
+r---wx-w- first Feb m 
+/b/h/ # /b/ # / # /c/ # rwxr-xr-x Feb n 
+rwxr-xr-x Feb o 
+/c/ # 
+24:
+Differences on  input24.txt
+Yours:
+/ # / # cd: b: No such file or directory 
+/ # cd: h: No such file or directory 
+/ # / # / # / # cd: c: No such file or directory 
+/ # / # 
+
+Seans:
+/ # rwxr-xr-x Feb a 
+rwxr-xr-x Feb b 
+rwxr-xr-x Feb c 
+rw-r--r-- Feb d 
+rw-r--r-- Feb e 
+rwxr-xr-x Feb f 
+/ # /b/ # /b/h/ # rwxrwxrwx Feb j 
+--x-w--wx second Feb k 
+r---wx-w- first Feb m 
+r-x--xr-- Feb r 
+rw-r--r-- who Feb s 
+rw-r--r-- Feb t 
+/b/h/ # /b/ # / # /c/ # rwxr-xr-x Feb n 
+rwxr-xr-x Feb o 
+rw-r--r-- Feb p 
+rw-r--r-- Feb q 
+/c/ # 
+25:
+Differences on  input25.txt
+Yours:
+
+/ 
+a 
+b 
+g 
+h 
+j 
+k second 
+m first 
+c 
+n 
+o 
+f 
+
+Seans:
+
+DF / 
+
+DF a 
+
+DF b 
+
+DF g 
+
+DF h 
+
+DF j 
+
+DF k second 
+
+DF m first 
+
+DF c 
+
+DF n 
+
+DF o 
+
+DF f 
+
+26:
+Differences on  input26.txt
+Yours:
+
+/ 
+a 
+b 
+g 
+h 
+j 
+k second 
+m first 
+c 
+n 
+o 
+f 
+
+Seans:
+
+DF / 
+
+DF a 
+
+DF b 
+
+DF g 
+
+DF h 
+
+DF j 
+
+DF k second 
+
+DF m first 
+
+F r 
+F s who 
+F t 
+DF c 
+
+DF n 
+
+DF o 
+
+F p 
+F q 
+F d 
+F e 
+DF f 
+
+27  (Extra credit):
+Differences on  input27.txt
+Yours:
+/ # touch: Command not found. 
+/ # chmod: cannot access ‘a’: No such file or directory 
+/ # chmod: cannot access ‘b’: No such file or directory 
+/ # chmod: cannot access ‘c’: No such file or directory 
+/ # / # 
+
+Seans:
+/ # / # / # / # / # -w---xr-- root Feb a 
+r--r-xr-- root Feb b 
+rwxr-x--x root Feb c 
+/ # 

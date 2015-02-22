@@ -1,0 +1,9 @@
+/ # cp: missing file operand 
+Try 'cp --help' for more information. 
+/ # / # cp: ‘a’ and ‘a’ are the same file 
+/ # cp: 'a' already exists. 
+/ # / # cp: 'b' already exists. 
+/ # Too many operands 
+Try 'cp --help' for more information. 
+/ # / # cp: cannot open ‘a’ for reading: Permission denied 
+/ # 
