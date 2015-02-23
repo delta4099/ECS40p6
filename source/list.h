@@ -1,30 +1,33 @@
 #ifndef LIST_H
 #define	LIST_H
 
-class Directory;
+template <typename T>
 class List;
 
+template <typename T>
 class ListNode
 {
-  Directory *directory;
+  T *data;
   ListNode *next;
-  ListNode(Directory *director, ListNode *nex);
+  ListNode(T *data, ListNode *nex);
   ~ListNode();
   friend class List;
 };  // class ListNode
 
 
+template <typename T>
 class List
 {
-  ListNode *head;
+  ListNode<T> *head;
 public:
   List();
-  List(const List &rhs);
+  List(const List <T> &rhs);
   ~List();
-  Directory* operator[] (int index);
-  const Directory* operator[] (int index) const;
-  List& operator+= (Directory *directory);
+  T* operator[] (int index);
+  const T* operator[] (int index) const;
+  List& operator+= (T *data);
 };  // class List
 
+#include "list.cpp"
 #endif	// LIST_H 
 

@@ -11,7 +11,7 @@ class Directory
 {
   char *name;
   Time time;
-  List subDirectories;
+  List<Directory> subDirectories;
   int subDirectoryCount;
   Directory *parent;
   Permissions permissions;

@@ -1,46 +1,49 @@
 // Author: Sean Davis
-
 #include "list.h"
-#include "directory.h"
 #include <iostream>
 
 
-ListNode::ListNode(Directory *director, ListNode *nex) : directory(director),
+template <typename T>
+ListNode<T>::ListNode(T *dat, ListNode *nex) : data(dat),
   next(nex)
 {
 }   // ListNode()
 
 
-ListNode::~ListNode()
+template <typename T>
+ListNode<T>::~ListNode<T>()
 {
-  delete directory;
+  delete data;
 }  // ~ListNode()
 
 
-List::List() : head(NULL)
+template <typename T>
+List<T>::List() : head(NULL)
 {
 } // List()
 
 
-List::List(const List &rhs)
+template <typename T>
+List<T>::List(const List<T> &rhs)
 {
-  ListNode *rhsPtr, *prev = NULL;
+  ListNode<T> *rhsPtr, *prev = NULL;
   
   for (rhsPtr = rhs.head; rhsPtr; rhsPtr = rhsPtr->next)
   {
-    Directory *directory = new Directory(*rhsPtr->directory);
+    T *data = new T(*rhsPtr->data);
     
     if (!prev)
-      prev = head = new ListNode(directory, NULL);
+      prev = head = new ListNode<T>(data, NULL);
     else  // inserting after first node
-      prev = prev->next = new ListNode(directory, NULL);
+      prev = prev->next = new ListNode<T>(data, NULL);
   }  // for each node in list
 }  // List copy constructor
 
 
-List::~List() 
+template <typename T>
+List<T>::~List() 
 {
-  for (ListNode *ptr = head; ptr; ptr = head)
+  for (ListNode<T> *ptr = head; ptr; ptr = head)
   {
     head = ptr->next;
     delete ptr;
@@ -48,46 +51,49 @@ List::~List()
 } // ~List()
 
 
-Directory* List::operator[] (int index)
+template <typename T>
+T* List<T>::operator[] (int index)
 {
-  ListNode *ptr = head;
+  ListNode<T> *ptr = head;
   
   for (int i = 0; ptr && i < index; i++, ptr = ptr->next);
     
   if (ptr)
-    return ptr->directory;
+    return ptr->data;
   else  // ptr is NULL so index is beyond the end of the list
     return NULL;
 }   // operator[]
 
 
-const Directory* List::operator[] (int index) const
+template <typename T>
+const T* List<T>::operator[] (int index) const
 {
-  ListNode *ptr = head;
+  ListNode<T> *ptr = head;
   
   for (int i = 0; ptr && i < index; i++, ptr = ptr->next);
     
   if (ptr)
-    return ptr->directory;
+    return ptr->data;
   else  // ptr is NULL so index is beyond the end of the list
     return NULL;
 }   // operator[] const]
 
 
- List& List::operator+= (Directory *directory)
- {
-   ListNode *ptr, *prev = NULL;
+template <typename T>
+List<T>& List<T>::operator+= (T *data)
+{
+  ListNode<T> *ptr, *prev = NULL;
    
-   for (ptr = head; ptr && *ptr->directory < *directory; ptr = ptr->next)
-     prev = ptr;
+    for (ptr = head; ptr && *ptr->data < *data; ptr = ptr->next)
+      prev = ptr;
    
     if (!prev)
-     head = new ListNode(directory, head);
-   else  // if inserting in middle of list.
-     prev->next = new ListNode(directory, ptr);
+      head = new ListNode<T>(data, head);
+    else  // if inserting in middle of list.
+      prev->next = new ListNode<T>(data, ptr);
 
-   return *this;
- }  // operator+=
+  return *this;
+}  // operator+=
  
  
   
