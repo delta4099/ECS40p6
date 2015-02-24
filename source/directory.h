@@ -5,22 +5,20 @@
 #include "list.h"
 #include "permissions.h"
 #include "Time.h"
+#include "file.h"
 
 using namespace std;
 
-class Directory
+class Directory: public File
 {
-  char *name;
-  Time time;
-  List<Directory> subDirectories;
+  List<File> subDirectories;
   int subDirectoryCount;
   Directory *parent;
-  Permissions permissions;
   bool iscpCorrectFormat(int argCount, const char *arguments[]);
 public:
   Directory(const char *nam, Directory *paren = NULL, const char *owner = NULL);
   Directory(const Directory &rhs);
-  ~Directory();
+  //~Directory();
   Directory* cd(int argCount, const char *arguments[], const char *user);
   void chmod(int argCount, const char *arguments[], const char *user);
     // changes the permissions of the arguments
@@ -29,10 +27,9 @@ public:
   void ls(int argCount, const char *arguments[], const char *user) const;
   void mkdir(int argCount, const char *arguments[], const char *user);
   void showPath() const;
-  bool operator== (const Directory &rhs) const;
-  bool operator< (const Directory &rhs) const;
-  friend ostream& operator<< (ostream &os, Directory const &rhs);
-  friend istream& operator>> (istream &is, Directory &rhs);
+  
+  //friend ostream& operator<< (ostream &os, Directory const &rhs);
+  //friend istream& operator>> (istream &is, Directory &rhs);
 };  // class Directory
 #endif  // DIRECTORY_H
 

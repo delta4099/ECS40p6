@@ -10,22 +10,31 @@ using namespace std;
 Directory::Directory(const char *nam, Directory *paren, const char *owner)
   : subDirectoryCount(0), parent(paren) 
  {
-  name = new char[strlen(nam) + 1];
-  strcpy(name, nam);
-  permissions.set(0777, owner);
  }  // Directory())
 
 
 Directory::Directory(const Directory &rhs) : 
-  subDirectories(rhs.subDirectories), 
+  //subDirectories(rhs.subDirectories), 
   subDirectoryCount(rhs.subDirectoryCount),  
-  parent(rhs.parent), permissions(rhs.permissions)
+  parent(rhs.parent) 
 {
-  name = new char[strlen(rhs.name) + 1];
-  strcpy(name, rhs.name);
-  
-  for (int i = 0; i < subDirectoryCount; i++)
-    subDirectories[i]->parent = this;
+  for (int i = 0; i < rhs.subDirectoryCount; i++)
+  {
+    const Directory *directory = dynamic_cast<const Directory*>(rhs.subDirectories[i]); 
+    
+    if (directory) // test if it's a directory 
+    {
+      Directory *  d1 = new Directory(//passing argumnets from rhs);
+      subDirectories += d1;
+      subDirectories[i]-> parent = this;
+    } 
+    else  // if it is a file
+    {
+      File * d1 = new ///
+      subDirectories += d1;
+    } // makes a new file
+    
+  }
 }   // Directory copy constructor
 
 Directory::~Directory()
@@ -54,6 +63,12 @@ Directory* Directory::cd(int argCount, const char *arguments[],
   {
     if (*subDirectories[i] == Directory(arguments[1]))
     {
+      Directory *directory = dynamic_cast<Directory*> (subDirectories[i]); 
+      if (!directory)
+      {
+        cout << arguments[1] < ": Not a directory." << endl; 
+        return this; 
+      }
       if (subDirectories[i]->permissions.isPermitted(EXECUTE_PERMISSIONS, user))
         return subDirectories[i];
       else  // subdirectory doesn't have execute permissions
@@ -190,13 +205,27 @@ void Directory::cp(int argCount, const char *arguments[], const char *user)
         return;
       }  // if not allowed to read
       
-      Directory *destinationDirectory = new Directory(*subDirectories[i]);
-      delete [] destinationDirectory->name;
-      destinationDirectory->name = new char[strlen(arguments[2]) + 1];
-      strcpy(destinationDirectory->name, arguments[2]);
-      subDirectories += destinationDirectory;
-      subDirectoryCount++;
-      return;
+      Directory *directory = dynamic_cast<Directory*> (subDirectories[i]); 
+      if (!directory)
+      {
+        File *destinationFile = new File(subDirectories[i]); 
+        delete [] destinationFile->name; 
+        destinationFile->name = new char[strlen(arguments[2]) + 1];
+        strcpy(destinationFile->name, arguments[2]);
+        subDirectories += destinationFile;
+        subDirectoryCount++;
+      }  // test if it's a File
+      else 
+      {
+        Directory *destinationDirectory = new Directory(*subDirectories[i]);
+        delete [] destinationDirectory->name;
+        destinationDirectory->name = new char[strlen(arguments[2]) + 1];
+        strcpy(destinationDirectory->name, arguments[2]);
+        subDirectories += destinationDirectory;
+        subDirectoryCount++;
+      }
+      
+      return; 
     }  // if found source subdirectory
   
   cout << "cp: cannot stat ‘" << arguments[1] 
@@ -262,7 +291,7 @@ void Directory::mkdir(int argCount, const char *arguments[], const char *user)
       if (permissions.isPermitted(WRITE_PERMISSIONS, user))
       {
         subDirectories += new Directory(arguments[argPos], this, user);
-        time.update();
+        updateTime();
         subDirectoryCount++;
       }  // if have write permissions
       else // no write permissions
@@ -285,18 +314,7 @@ void Directory::showPath() const
   cout << name << "/";
 }  // showPath())
 
-
-bool Directory::operator== (const Directory &rhs) const
-{
-  return strcmp(name, rhs.name) == 0;
-}  // operator==
-
-
-bool Directory::operator< (const Directory &rhs) const
-{
-  return strcmp(name, rhs.name) < 0;
-}  // operator<
-
+/*
 ostream& operator<< (ostream &os, Directory const &rhs)
 {
   os << rhs.name << ' ' << rhs.time << ' ' <<  rhs.subDirectoryCount 
@@ -306,7 +324,9 @@ ostream& operator<< (ostream &os, Directory const &rhs)
     os << *rhs.subDirectories[i];
   return os;
 }  // operator<<
+*/
 
+/*
 istream& operator>> (istream &is, Directory &rhs)
 {
   is >> rhs.name >> rhs.time >> rhs.subDirectoryCount >> rhs.permissions; 
@@ -321,3 +341,4 @@ istream& operator>> (istream &is, Directory &rhs)
   
   return is;
 }  // operator>>
+*/
