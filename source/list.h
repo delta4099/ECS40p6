@@ -1,8 +1,7 @@
 #ifndef LIST_H
 #define	LIST_H
 
-template <typename T>
-class List;
+template <typename T > class List;
 
 template <typename T>
 class ListNode
@@ -11,7 +10,7 @@ class ListNode
   ListNode *next;
   ListNode(T *data, ListNode *nex);
   ~ListNode();
-  friend class List;
+  friend class List <T>;
 };  // class ListNode
 
 

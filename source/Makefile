@@ -4,7 +4,6 @@ funix.out : directory.o funix.o main.o permissions.o Time.o
 directory.o : directory.cpp directory.h permissions.h list.h list.cpp
 	g++ -ansi -Wall -g -c directory.cpp
 
-
 funix.o : funix.cpp permissions.h funix.h directory.h 
 	g++ -ansi -Wall -g -c funix.cpp
 
