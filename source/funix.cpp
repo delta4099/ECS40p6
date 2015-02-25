@@ -176,7 +176,7 @@ void Funix::writePrompt() const  // shows path and '#'
 ostream& operator<< (ostream &os, const Funix &rhs)
 {
   Permissions::writeUmask(os);
-  os << *rhs.currentDirectory;
+  //os << *rhs.currentDirectory;
   return os;
 }  // operator<<
  
@@ -185,6 +185,6 @@ istream& operator>> (istream &is, Funix &rhs)
 {
   Permissions::readUmask(is);
   
-  is >> *rhs.currentDirectory;
+  //is >> *rhs.currentDirectory;
   return is;
 }  // operator>>

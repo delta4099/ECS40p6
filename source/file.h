@@ -23,6 +23,7 @@ public:
   Permissions getPermissions(); 
   void touch(); 
   void ls(bool isLongFormat) const; 
+  void printTime() const; 
   
 };
 #endif // File_H 

@@ -3,7 +3,7 @@
 #include <iostream>
 #include "directory.h"
 #include "permissions.h"
-//#include "list.h"
+#include "list.h"
 
 using namespace std;
 
@@ -14,10 +14,16 @@ Directory::Directory(const char *nam, Directory *paren, const char *owner)
 
 
 Directory::Directory(const Directory &rhs) : 
-  //subDirectories(rhs.subDirectories), 
+  subDirectories(rhs.subDirectories), 
   subDirectoryCount(rhs.subDirectoryCount),  
   parent(rhs.parent) 
 {
+  name = new char[strlen(rhs.name) + 1];
+  strcpy(name, rhs.name);
+
+  for (int i = 0; i < subDirectoryCount; i++)
+    subDirectories[i]->parent = this;
+  /*
   for (int i = 0; i < rhs.subDirectoryCount; i++)
   {
     const Directory *directory = dynamic_cast<const Directory*>(rhs.subDirectories[i]); 
@@ -33,14 +39,14 @@ Directory::Directory(const Directory &rhs) :
       File * d1 = new ///
       subDirectories += d1;
     } // makes a new file
-    
-  }
+  */  
+  //}
 }   // Directory copy constructor
 
-Directory::~Directory()
-{
-  delete [] name;
-}  // ~Directory()
+// Directory::~Directory()
+// {
+//   delete [] name;
+// }  // ~Directory()
 
 Directory* Directory::cd(int argCount, const char *arguments[], 
                          const char *user)
@@ -63,12 +69,14 @@ Directory* Directory::cd(int argCount, const char *arguments[],
   {
     if (*subDirectories[i] == Directory(arguments[1]))
     {
+      /*
       Directory *directory = dynamic_cast<Directory*> (subDirectories[i]); 
       if (!directory)
       {
         cout << arguments[1] < ": Not a directory." << endl; 
         return this; 
       }
+      */
       if (subDirectories[i]->permissions.isPermitted(EXECUTE_PERMISSIONS, user))
         return subDirectories[i];
       else  // subdirectory doesn't have execute permissions
@@ -205,6 +213,7 @@ void Directory::cp(int argCount, const char *arguments[], const char *user)
         return;
       }  // if not allowed to read
       
+      /*
       Directory *directory = dynamic_cast<Directory*> (subDirectories[i]); 
       if (!directory)
       {
@@ -217,13 +226,14 @@ void Directory::cp(int argCount, const char *arguments[], const char *user)
       }  // test if it's a File
       else 
       {
+      */
         Directory *destinationDirectory = new Directory(*subDirectories[i]);
         delete [] destinationDirectory->name;
         destinationDirectory->name = new char[strlen(arguments[2]) + 1];
         strcpy(destinationDirectory->name, arguments[2]);
         subDirectories += destinationDirectory;
         subDirectoryCount++;
-      }
+     // }
       
       return; 
     }  // if found source subdirectory
@@ -254,7 +264,7 @@ void Directory::ls(int argCount, const char *arguments[], const char *user)const
         {
           subDirectories[i]->permissions.print();
           cout << ' ';
-          subDirectories[i]->time.print();
+          //subDirectories[i]->printTime();
           cout << subDirectories[i]->name << endl;
         }  // for each subdirectory
       }  // else is ls -l

@@ -28,6 +28,11 @@ void File::updateTime()
     time.update(); 
 }
 
+void File::printTime() const 
+{
+    time.print(); 
+}
+
 Permissions File::getPermissions(); 
 {
   return permissions;  

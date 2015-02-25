@@ -11,7 +11,7 @@ using namespace std;
 
 class Directory: public File
 {
-  List<File> subDirectories;
+  List<Directory> subDirectories;
   int subDirectoryCount;
   Directory *parent;
   bool iscpCorrectFormat(int argCount, const char *arguments[]);
