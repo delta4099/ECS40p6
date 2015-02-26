@@ -4,7 +4,7 @@
 
 using namespace std;
 
-File::File()
+File::File() 
 {
     
 }  // Default constructor
@@ -21,7 +21,7 @@ File::File(const char *nam, Permissions perm)
   name = new char[strlen(nam) + 1];
   strcpy(name, nam);
   //permissions.set(0777, owner);
- // permissions = new Permissions(perm); 
+  permissions = *(new Permissions(perm)); 
 }  // Standard constructor
 
 File::~File()

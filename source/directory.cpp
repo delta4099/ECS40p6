@@ -218,9 +218,6 @@ void Directory::cp(int argCount, const char *arguments[], const char *user)
       {
         File *destinationFile = new File(arguments[2]
           , subDirectories[i]->getPermissions()); 
-        delete [] destinationFile->name; 
-        destinationFile->name = new char[strlen(arguments[2]) + 1];
-        strcpy(destinationFile->name, arguments[2]);
         subDirectories += destinationFile;
         subDirectoryCount++;
       }  // test if it's a File
@@ -256,7 +253,6 @@ void Directory::ls(int argCount, const char *arguments[], const char *user)const
         for (int i = 0; i < subDirectoryCount; i++)
         {
           subDirectories[i]->ls(false); 
-          cout << subDirectories[i]->name << " ";
         }
         cout << "\n";
       }  // if simple ls
@@ -265,10 +261,6 @@ void Directory::ls(int argCount, const char *arguments[], const char *user)const
         for (int i = 0; i < subDirectoryCount; i++)
         {
           subDirectories[i]->ls(true); 
-          // subDirectories[i]->getPermissions().print();
-          // cout << ' ';
-          // subDirectories[i]->printTime();
-          // cout << subDirectories[i]->name << "endl";
         }  // for each subdirectory
       }  // else is ls -l
     }  // if have read permissions

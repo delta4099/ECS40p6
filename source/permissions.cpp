@@ -24,8 +24,8 @@ Permissions::Permissions(short perm, const char *own)
 {
   permissions = perm & ~umask;
   
-  if (owner)
-    delete [] owner;
+  //if (owner)
+    //delete [] owner;
   
   if (own)
   {
