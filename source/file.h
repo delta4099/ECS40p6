@@ -24,6 +24,8 @@ public:
   virtual ~File(); 
   Permissions getPermissions() const; 
   void touch(); 
+  void read(); 
+  void write(); 
   void ls(bool isLongFormat) const; 
   bool operator== (const File &rhs) const;
   bool operator< (const File &rhs) const;
