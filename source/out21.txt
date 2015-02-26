@@ -1,7 +1,6 @@
 / # touch: Command not found. 
 / # / # / # touch: Command not found. 
-/ # / # / # b: Permission denied. 
-/ # touch: Command not found. 
-/ # / # touch: Command not found. 
+/ # / # / # /b/ # touch: Command not found. 
+/b/ # / # touch: Command not found. 
 / # cd: d: No such file or directory 
 / # 

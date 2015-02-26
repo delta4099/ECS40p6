@@ -1,15 +1,67 @@
 1:OK
-2:OK
+2:
+Differences on  input2.txt
+/ # / # / # abc 
+/ # /b/ # 
+
+Seans:
+/ # / # / # a b c 
+/ # /b/ # 
 3:OK
 4:OK
 5:OK
 6:OK
 7:OK
-8:OK
+8:
+Differences on  input8.txt
+/ # / # / # / # abc 
+/ # rwxr-xr-x Feb a 
+rwxr-xr-x Feb b 
+rwxr-xr-x Feb c 
+/ # 
+
+Seans:
+/ # / # / # / # a b c 
+/ # rwxr-xr-x Feb a 
+rwxr-xr-x Feb b 
+rwxr-xr-x Feb c 
+/ # 
 9:OK
 10:OK
-11:OK
-12:OK
+11:
+Differences on  input11.txt
+/ # chmod: missing operand 
+Try 'chmod --help' for more information. 
+/ # chmod: cannot access ‘a’: No such file or directory 
+/ # / # chmod: cannot access ‘c’: No such file or directory 
+/ # / # / # / # / # / # / # /e/ # /e/ # g 
+/e/ # / # /d/ # / # /f/ # /f/ # h 
+/f/ # 
+
+Seans:
+/ # chmod: missing operand 
+Try 'chmod --help' for more information. 
+/ # chmod: cannot access ‘a’: No such file or directory 
+/ # / # chmod: cannot access ‘c’: No such file or directory 
+/ # / # / # / # / # / # / # /e/ # /e/ # ls: cannot open directory .: Permission denied 
+/e/ # / # d: Permission denied. 
+/ # / # /f/ # mkdir: cannot create directory ‘h’: Permission denied 
+/f/ # 
+/f/ # 
+12:
+Differences on  input12.txt
+/ # / # / # / # / # / # / # / # / # rwxr-xr-x Feb a 
+rwxr-xr-x Feb b 
+rwxr-xr-x Feb c 
+rwxr-xr-x Feb d 
+/ # 
+
+Seans:
+/ # / # / # / # / # / # / # / # / # --x-w--wx Feb a 
+-wxr--r-x Feb b 
+r--r-xrw- Feb c 
+r-xrw-rwx Feb d 
+/ # 
 13:
 Differences on  input13.txt
 / # cp: missing file operand 
@@ -19,8 +71,7 @@ Try 'cp --help' for more information.
 / # / # cp: 'b' already exists. 
 / # Too many operands 
 Try 'cp --help' for more information. 
-/ # / # cp: cannot open ‘a’ for reading: Permission denied 
-/ # 
+/ # / # / # 
 
 Seans:
 / # cp: missing operand 
@@ -32,12 +83,29 @@ Try 'cp --help' for more information.
 Try 'cp --help' for more information. 
 / # / # cp: cannot open ‘a’ for reading: Permission denied 
 / # 
-14:OK
+14:
+Differences on  input14.txt
+/ # / # / # /b/ # /b/ # /b/c/ # /b/c/ # /b/c/d/ # /b/c/d/ # /b/c/d/ # /b/c/d/ # /b/c/ # /b/ # / # / # / # /h/ # /h/c/ # /h/c/d/ # rwxr-xr-x Feb e 
+rwxr-xr-x Feb e 
+/h/c/d/ # /h/c/ # /h/ # / # rwxr-xr-x Feb a 
+rwxr-xr-x Feb b 
+rwxr-xr-x Feb g 
+rwxr-xr-x Feb h 
+/ # 
+
+Seans:
+/ # / # / # /b/ # /b/ # /b/c/ # /b/c/ # /b/c/d/ # /b/c/d/ # /b/c/d/ # /b/c/d/ # /b/c/ # /b/ # / # / # / # /h/ # /h/c/ # /h/c/d/ # r--r-xrw- Feb e 
+rwxr-xr-x Feb f 
+/h/c/d/ # /h/c/ # /h/ # / # rwxr-xr-x Feb a 
+rwxr-xr-x Feb b 
+rwxr-xr-x Feb g 
+rwxr-xr-x Feb h 
+/ # 
 15:
 Differences on  input15.txt
 / # / # /a/ # /a/ # touch: Command not found. 
 /a/ # /a/ # / # / # /f/ # rwxr-xr-x Feb b 
-rwxr-xr-x Feb e 
+rwxr-xr-x Feb b 
 /f/ # 
 
 Seans:
@@ -56,17 +124,41 @@ Seans:
 / # / # / # rw-r--r-- Feb a 
 rw-r--r-- Feb b 
 / # 
-17:OK
+17:
+Differences on  input17.txt
+/ # usage: su user_name 
+/ # usage: su user_name 
+/ # su: user toolongname does not exist 
+/ # / # / # / # /a/ # mkdir: cannot create directory ‘b’: Permission denied 
+/a/ # /a/ # cd: b: No such file or directory 
+/a/ # /a/ # 
+
+Seans:
+/ # usage: su user_name 
+/ # usage: su user_name 
+/ # su: user toolongname does not exist 
+/ # / # / # / # a: Permission denied. 
+/ # mkdir: cannot create directory ‘b’: Permission denied 
+/ # / # cd: b: No such file or directory 
+/ # / # 
 18:OK
 19:OK
-20:OK
+20:
+Differences on  input20.txt
+/ # / # / # / # / # rwxr-xr-x Feb a 
+rwxr-xr-x Feb b 
+/ # 
+
+Seans:
+/ # / # / # / # / # rwxr-xr-x other Feb a 
+rwxr-xr-x someone Feb b 
+/ # 
 21:
 Differences on  input21.txt
 / # touch: Command not found. 
 / # / # / # touch: Command not found. 
-/ # / # / # b: Permission denied. 
-/ # touch: Command not found. 
-/ # / # touch: Command not found. 
+/ # / # / # /b/ # touch: Command not found. 
+/b/ # / # touch: Command not found. 
 / # cd: d: No such file or directory 
 / # 
 
@@ -134,18 +226,6 @@ rw-r--r-- Feb q
 Differences on  input25.txt
 Yours:
 
-/ 
-a 
-b 
-g 
-h 
-j 
-k second 
-m first 
-c 
-n 
-o 
-f 
 
 Seans:
 
@@ -177,18 +257,6 @@ DF f
 Differences on  input26.txt
 Yours:
 
-/ 
-a 
-b 
-g 
-h 
-j 
-k second 
-m first 
-c 
-n 
-o 
-f 
 
 Seans:
 
@@ -209,7 +277,7 @@ DF k second
 DF m first 
 
 F r 
-F s who 
+F s 
 F t 
 DF c 
 
@@ -233,7 +301,7 @@ Yours:
 / # / # 
 
 Seans:
-/ # / # / # / # / # -w---xr-- root Feb a 
-r--r-xr-- root Feb b 
-rwxr-x--x root Feb c 
+/ # / # / # / # / # -w--wxr-- root Feb a 
+r--r-xrw- root Feb b 
+rwxrwx--x root Feb c 
 / # 

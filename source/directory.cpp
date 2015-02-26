@@ -319,31 +319,5 @@ void Directory::showPath() const
   cout << name << "/";
 }  // showPath())
 
-/*
-ostream& operator<< (ostream &os, Directory const &rhs)
-{
-  os << rhs.name << ' ' << rhs.time << ' ' <<  rhs.subDirectoryCount 
-    << ' ' << rhs.permissions << endl;
-  
-  for (int i = 0; i < rhs.subDirectoryCount; i++)
-    os << *rhs.subDirectories[i];
-  return os;
-}  // operator<<
-*/
 
-/*
-istream& operator>> (istream &is, Directory &rhs)
-{
-  is >> rhs.name >> rhs.time >> rhs.subDirectoryCount >> rhs.permissions; 
-  is.ignore(10, '\n');
-  
-  for (int i = 0; i < rhs.subDirectoryCount; i++)
-  {
-    Directory *subDirectory = new Directory("Dummy", &rhs);
-    is >> *subDirectory;
-    rhs.subDirectories += subDirectory;
-  }  // for each subdirectory
-  
-  return is;
-}  // operator>>
-*/
+//

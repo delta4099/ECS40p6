@@ -1,7 +1,6 @@
 / # usage: su user_name 
 / # usage: su user_name 
 / # su: user toolongname does not exist 
-/ # / # / # / # a: Permission denied. 
-/ # mkdir: cannot create directory ‘b’: Permission denied 
-/ # / # cd: b: No such file or directory 
-/ # / # 
+/ # / # / # / # /a/ # mkdir: cannot create directory ‘b’: Permission denied 
+/a/ # /a/ # cd: b: No such file or directory 
+/a/ # /a/ # 
