@@ -22,13 +22,14 @@ public:
   File(const File &rhs); 
   File(const char *nam, Permissions perm);
   virtual ~File(); 
-  Permissions getPermissions() const; 
-  void touch(); 
+  Permissions *getPermissions() const; 
+  void touch(File &rhs); 
   void read(); 
-  void write(); 
+  virtual ostream& write(ostream &os) const; 
   void ls(bool isLongFormat) const; 
   bool operator== (const File &rhs) const;
   bool operator< (const File &rhs) const;
-  
+  friend ostream& operator<< (ostream &os, File const &rhs);
+  friend istream& operator>> (istream &is, File &rhs);
 };
 #endif // File_H 

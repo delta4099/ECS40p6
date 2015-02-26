@@ -37,14 +37,15 @@ void File::printTime() const
     time.print(); 
 }  // printTime()
 
-Permissions File::getPermissions() const
+Permissions* File::getPermissions() const
 {
-  return permissions;  
+  return new Permissions(permissions);
+  // return &permissions;  
 }  // getPermissions()
 
-void File::touch()
+void File::touch(File &rhs)
 {
-    
+  rhs.updateTime();
 }  // touch()
 
 void File::ls(bool isLongFormat) const
@@ -63,6 +64,7 @@ void File::ls(bool isLongFormat) const
   }
 }  // ls()
 
+
 bool File::operator== (const File &rhs) const
 {
   return strcmp(name, rhs.name) == 0;
@@ -73,3 +75,36 @@ bool File::operator< (const File &rhs) const
 {
   return strcmp(name, rhs.name) < 0;
 }  // operator<
+
+ostream& File::write(ostream &os) const 
+{
+  os << "F ";
+  os << name << ' ' << time
+    << ' ' << permissions << endl;
+  return os; 
+}
+
+ostream& operator<< (ostream &os, File const &rhs)
+{
+  rhs.write(os); 
+  // os << rhs.name << ' ' << rhs.time << ' ' <<  rhs.subDirectoryCount 
+  //   << ' ' << rhs.permissions << endl;
+  
+  return os;
+}  // operator<<
+
+
+// istream& operator>> (istream &is, Directory &rhs)
+// {
+//   is >> rhs.name >> rhs.time >> rhs.subDirectoryCount >> rhs.permissions; 
+//   is.ignore(10, '\n');
+  
+//   for (int i = 0; i < rhs.subDirectoryCount; i++)
+//   {
+//     Directory *subDirectory = new Directory("Dummy", &rhs);
+//     is >> *subDirectory;
+//     rhs.subDirectories += subDirectory;
+//   }  // for each subdirectory
+  
+//   return is;
+// }  // operator>>

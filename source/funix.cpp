@@ -96,7 +96,7 @@ void Funix::getCommand(char *command) const // writes prompt and reads command
 int Funix::processCommand(char *command)  // returns 0 on proper exit
 {
   static const char *commands[] = {"cd", "exit", "ls", "mkdir", "umask", 
-    "chmod", "cp", "su", "chown"};
+    "chmod", "cp", "su", "chown", "touch"};
   const char *arguments[MAX_ARGUMENTS];
   char *ptr;
   int argCount = 0, commandNum;
@@ -129,6 +129,7 @@ int Funix::processCommand(char *command)  // returns 0 on proper exit
       case 6: currentDirectory->cp(argCount, arguments, user); break;
       case 7: su(argCount, arguments); break;
       case 8: chown(argCount, arguments); break;
+      case 9: currentDirectory->touch(argCount, arguments, user); break;
       default: cout << arguments[0] << ": Command not found.\n";
     }  // switch on commandNum   
   }  // if at least one argument
@@ -176,7 +177,7 @@ void Funix::writePrompt() const  // shows path and '#'
 ostream& operator<< (ostream &os, const Funix &rhs)
 {
   Permissions::writeUmask(os);
-  //os << *rhs.currentDirectory;
+  os << *rhs.currentDirectory;
   return os;
 }  // operator<<
  

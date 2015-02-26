@@ -26,7 +26,9 @@ public:
   void cp(int argCount, const char *arguments[], const char *user);
   void ls(int argCount, const char *arguments[], const char *user) const;
   void mkdir(int argCount, const char *arguments[], const char *user);
+  void touch(int argCount, const char *arguments[], const char *user);
   void showPath() const;
+  ostream& write(ostream &os) const;
   
   //friend ostream& operator<< (ostream &os, Directory const &rhs);
   //friend istream& operator>> (istream &is, Directory &rhs);

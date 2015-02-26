@@ -4,7 +4,7 @@
 #include "directory.h"
 
 const int COMMAND_LENGTH = 80;
-const int NUM_COMMANDS = 9;
+const int NUM_COMMANDS = 10;
 const int MAX_ARGUMENTS = 40;
 
 class Funix

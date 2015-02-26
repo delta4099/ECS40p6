@@ -75,8 +75,8 @@ Directory* Directory::cd(int argCount, const char *arguments[],
         return this; 
       }  // test if it's a directory 
       
-      if (subDirectories[i]->getPermissions().isPermitted(EXECUTE_PERMISSIONS, user))
-        return (Directory *)subDirectories[i];
+      if (subDirectories[i]->getPermissions()->isPermitted(EXECUTE_PERMISSIONS, user))
+        return directory;
       else  // subdirectory doesn't have execute permissions
       {
         cout << arguments[1] << ": Permission denied.\n";
@@ -126,8 +126,9 @@ bool Directory:: iscpCorrectFormat(int argCount, const char *arguments[])
 
 
 void Directory::chmod(int argCount, const char *arguments[], const char *user)
- // changes the permissions of the arguments
+// changes the permissions of the arguments
 {
+  cout << "**TEST** reached chmod()\n";
   if (argCount < 3)
   {
     if (argCount == 1)
@@ -154,13 +155,22 @@ void Directory::chmod(int argCount, const char *arguments[], const char *user)
     for (j = 0; j < subDirectoryCount; j++)
       if (Directory(arguments[i]) == *subDirectories[j])
       {
-        subDirectories[j]->getPermissions().chmod(newPermissions, user);
+        cout << "**TEST** entered j for loop before changing permissions\n"
+             << "Permissions short: ";
+        subDirectories[j]->getPermissions()->print();
+        cout << endl;
+        
+        subDirectories[j]->getPermissions()->chmod(newPermissions, user);
+        
+        cout << "**TEST** supposedly changed permissions\nPermissions short: ";
+        subDirectories[j]->getPermissions()->print();
+        cout << endl;
         break;
       }  // if matched name of directory with argument
     
     if (j == subDirectoryCount)
       cout << "chmod: cannot access ‘" << arguments[i] 
-           << "’: No such file or directory\n";
+          << "’: No such file or directory\n";
   }  // for each filename
 }  // chmod()
 
@@ -184,15 +194,15 @@ void Directory::chown(int argCount, const char *arguments[])
   }  // if wrong number of arguments
   
   for (j = 0; j < subDirectoryCount; j++)
-     if (Directory(arguments[2]) == *subDirectories[j])
+    if (Directory(arguments[2]) == *subDirectories[j])
       {
-        subDirectories[j]->getPermissions().chown(arguments[1]);
+        subDirectories[j]->getPermissions()->chown(arguments[1]);
         break;
       }  // if matched name of directory with argument
     
   if (j == subDirectoryCount)
     cout << "chown: cannot access ‘" << arguments[2] 
-         << "’: No such file or directory\n";
+        << "’: No such file or directory\n";
 }  // chown()
 
 
@@ -204,7 +214,7 @@ void Directory::cp(int argCount, const char *arguments[], const char *user)
   for (int i = 0; i < subDirectoryCount; i++)
     if (*subDirectories[i] == Directory(arguments[1]))
     {
-      if (!subDirectories[i]->getPermissions().isPermitted(READ_PERMISSIONS, user ))
+      if (!subDirectories[i]->getPermissions()->isPermitted(READ_PERMISSIONS, user ))
       {
         cout << "cp: cannot open ‘" << arguments[1] 
              << "’ for reading: Permission denied\n";
@@ -217,14 +227,14 @@ void Directory::cp(int argCount, const char *arguments[], const char *user)
       if (!directory)
       {
         File *destinationFile = new File(arguments[2]
-          , subDirectories[i]->getPermissions()); 
+          , *(subDirectories[i]->getPermissions())); 
         subDirectories += destinationFile;
         subDirectoryCount++;
       }  // test if it's a File
       else 
       {
       
-        Directory *destinationDirectory = new Directory(*(Directory *)subDirectories[i]);
+        Directory *destinationDirectory = new Directory(*directory);
         delete [] destinationDirectory->name;
         destinationDirectory->name = new char[strlen(arguments[2]) + 1];
         strcpy(destinationDirectory->name, arguments[2]);
@@ -246,7 +256,7 @@ void Directory::ls(int argCount, const char *arguments[], const char *user)const
     cout << "usage: ls [-l]\n";
   else  // correct number of arguments
   {
-    if (getPermissions().isPermitted(READ_PERMISSIONS, user))
+    if (getPermissions()->isPermitted(READ_PERMISSIONS, user))
     {
       if (argCount == 1)  // simple ls
       {
@@ -293,7 +303,7 @@ void Directory::mkdir(int argCount, const char *arguments[], const char *user)
     
     if (i == subDirectoryCount)
     {
-      if (getPermissions().isPermitted(WRITE_PERMISSIONS, user))
+      if (getPermissions()->isPermitted(WRITE_PERMISSIONS, user))
       {
         subDirectories += new Directory(arguments[argPos], this, user);
         updateTime();
@@ -305,6 +315,42 @@ void Directory::mkdir(int argCount, const char *arguments[], const char *user)
     }  // if name not found
   }  // for each filename
 }  // mkdir()
+
+
+void Directory::touch(int argCount, const char *arguments[], const char *user)
+{
+  int i;
+  
+  if (argCount == 1)
+  {
+    cout << "touch: missing operand\n";
+    cout << "Try 'touch --help' for more information.\n";
+    return;
+  }  // if too many arguments
+   
+  for (int argPos = 1; argPos < argCount; argPos++)
+  {
+    for (i = 0; i < subDirectoryCount; i++)
+      if (*subDirectories[i] == Directory(arguments[argPos]))
+      {
+        File::touch(*subDirectories[i]);
+        break;
+      }  // if subdirectory already exists.
+    
+    if (i == subDirectoryCount)
+    {
+      if (getPermissions()->isPermitted(WRITE_PERMISSIONS, user))
+      {
+        subDirectories += new File(arguments[argPos], Permissions(0666, user));
+        updateTime();
+        subDirectoryCount++;
+      }  // if have write permissions
+      else // no write permissions
+        cout << "touch: cannot create file ‘" << arguments[argPos] 
+             <<  "’: Permission denied\n";
+    }  // if name not found
+  }  // for each filename
+}  // touch()
 
 
 void Directory::showPath() const
@@ -319,5 +365,13 @@ void Directory::showPath() const
   cout << name << "/";
 }  // showPath())
 
-
-//
+ostream& Directory::write(ostream &os) const
+{
+  os << "D"; 
+  File::write(os);
+  os << subDirectoryCount << endl; 
+  
+  for (int i = 0; i < subDirectoryCount; i++)
+    os << *subDirectories[i];
+  return os; 
+}
