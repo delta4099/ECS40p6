@@ -13,7 +13,6 @@ File::File(const File &rhs) : permissions(rhs.permissions)
 {
   name = new char[strlen(rhs.name) + 1];
   strcpy(name, rhs.name);
-  
 }  // Copy constructor
 
 File::File(const char *nam, Permissions perm) : permissions(perm)

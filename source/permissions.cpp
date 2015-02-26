@@ -16,7 +16,7 @@ Permissions::Permissions() : owner(NULL)
 
 Permissions::Permissions(const Permissions &rhs) : permissions(rhs.permissions)
 {
-  if(rhs.owner)
+  if (rhs.owner)
   {
     owner = new char[strlen(rhs.owner) + 1];
     strcpy(owner, rhs.owner);
@@ -65,20 +65,10 @@ short Permissions::checkOctals(const char *octals)
 
 void Permissions::chmod(short newPermissions, const char *user)
 {
-  cout << "**TEST** reached chmod()\noldPermissions short: " 
-       << oct << permissions << dec
-       << "\nsupposed newPermissions short: "
-       << oct << newPermissions << dec << endl;
-       
   if (strcmp(user, owner) != 0)
     cout << "chmod: Permission denied\n";
   else   // owner and user are the same
     permissions = newPermissions;
-    
-  cout << "**TEST** changed Permissions short: " 
-       << oct << permissions << dec 
-       << "\nnewPermissions short: "
-       << oct << newPermissions << dec << endl;
 }  // chmod())
 
 

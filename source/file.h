@@ -26,12 +26,12 @@ public:
   Permissions *getPermissions() const; 
   void touch(File &rhs); 
   void read(); 
-
   virtual ostream& write(ostream &os) const; 
   void ls(bool isLongFormat) const; 
   bool operator== (const File &rhs) const;
   bool operator< (const File &rhs) const;
   friend ostream& operator<< (ostream &os, File const &rhs);
   friend istream& operator>> (istream &is, File &rhs);
-};
+};  // File class
+
 #endif // File_H 

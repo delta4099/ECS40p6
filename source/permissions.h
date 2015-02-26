@@ -4,9 +4,9 @@
 #include <iostream>
 using namespace std;
 
-const int EXECUTE_PERMISSIONS = 1;
-const int READ_PERMISSIONS = 4;
-const int WRITE_PERMISSIONS = 2;
+const int EXECUTE_PERM = 1;
+const int READ_PERM = 4;
+const int WRITE_PERM = 2;
 
 class Permissions 
 {

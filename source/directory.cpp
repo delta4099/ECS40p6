@@ -72,7 +72,7 @@ Directory* Directory::cd(int argCount, const char *arguments[],
         return this; 
       }  // test if it's a directory 
       
-      if (subDirectories[i]->getPermissions()->isPermitted(EXECUTE_PERMISSIONS, 
+      if (subDirectories[i]->getPermissions()->isPermitted(EXECUTE_PERM, 
           user))
         return directory;
       else  // subdirectory doesn't have execute permissions
@@ -202,8 +202,7 @@ void Directory::cp(int argCount, const char *arguments[], const char *user)
   for (int i = 0; i < subDirectoryCount; i++)
     if (*subDirectories[i] == Directory(arguments[1]))
     {
-      if (!subDirectories[i]->getPermissions()->isPermitted(READ_PERMISSIONS, 
-          user ))
+      if (!subDirectories[i]->getPermissions()->isPermitted(READ_PERM, user ))
       {
         cout << "cp: cannot open ‘" << arguments[1] 
              << "’ for reading: Permission denied\n";
@@ -232,9 +231,8 @@ void Directory::cp(int argCount, const char *arguments[], const char *user)
       return; 
     }  // if found source subdirectory
   
-  cout << "cp: cannot stat ‘" << arguments[1] 
-       << "’: No such file or directory\n";
-  cout << "Try 'cp --help' for more information.\n";
+  cout << "cp: cannot stat ‘" << arguments[1] << "’: No such file or directory"
+       << "\nTry 'cp --help' for more information.\n";
 }  // cp())
 
 void Directory::ls(int argCount, const char *arguments[], const char *user)const
@@ -243,7 +241,7 @@ void Directory::ls(int argCount, const char *arguments[], const char *user)const
     cout << "usage: ls [-l]\n";
   else  // correct number of arguments
   {
-    if (getPermissions()->isPermitted(READ_PERMISSIONS, user))
+    if (getPermissions()->isPermitted(READ_PERM, user))
     {
       if (argCount == 1)  // simple ls
       {
@@ -291,7 +289,7 @@ void Directory::mkdir(int argCount, const char *arguments[], const char *user)
     
     if (i == subDirectoryCount)
     {
-      if (getPermissions()->isPermitted(WRITE_PERMISSIONS, user))
+      if (getPermissions()->isPermitted(WRITE_PERM, user))
       {
         subDirectories += new Directory(arguments[argPos], this, user);
         updateTime();
@@ -327,7 +325,7 @@ void Directory::touch(int argCount, const char *arguments[], const char *user)
     
     if (i == subDirectoryCount)
     {
-      if (getPermissions()->isPermitted(WRITE_PERMISSIONS, user))
+      if (getPermissions()->isPermitted(WRITE_PERM, user))
       {
         subDirectories += new File(arguments[argPos], Permissions(0666, user));
         updateTime();
