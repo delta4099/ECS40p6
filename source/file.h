@@ -11,19 +11,21 @@ class File
 {
   Time time;
 protected: 
-  char *name;
   Permissions permissions;
+  char *name;
   void updateTime(); 
+  void printTime() const;
+  // friend class Directory;
 public: 
   File(); 
-  File( const File &rhs); 
+  File(const File &rhs); 
   File(const char *nam, Permissions perm);
-  bool operator== (const File &rhs) const;
-  bool operator< (const File &rhs) const;
-  Permissions getPermissions(); 
+  virtual ~File(); 
+  Permissions getPermissions() const; 
   void touch(); 
   void ls(bool isLongFormat) const; 
-  void printTime() const; 
+  bool operator== (const File &rhs) const;
+  bool operator< (const File &rhs) const;
   
 };
 #endif // File_H 

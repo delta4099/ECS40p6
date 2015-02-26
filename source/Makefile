@@ -1,5 +1,5 @@
-funix.out : directory.o funix.o main.o permissions.o Time.o  
-	g++ -ansi -Wall -g -o funix.out directory.o funix.o main.o permissions.o Time.o  
+funix.out : directory.o funix.o main.o permissions.o Time.o file.o 
+	g++ -ansi -Wall -g -o funix.out directory.o funix.o main.o permissions.o Time.o file.o  
 
 directory.o : directory.cpp directory.h permissions.h list.h list.cpp
 	g++ -ansi -Wall -g -c directory.cpp
@@ -15,6 +15,9 @@ permissions.o : permissions.cpp permissions.h
 
 Time.o : Time.cpp Time.h 
 	g++ -ansi -Wall -g -c Time.cpp
+	
+file.o : file.cpp file.h 
+	g++ -ansi -Wall -g -c file.cpp 
 
 clean : 
-	rm -f funix.out directory.o  funix.o  main.o  permissions.o  Time.o   
+	rm -f funix.out directory.o  funix.o  main.o  permissions.o  Time.o file.o 

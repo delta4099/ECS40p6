@@ -21,26 +21,25 @@ Directory::Directory(const Directory &rhs) :
   name = new char[strlen(rhs.name) + 1];
   strcpy(name, rhs.name);
 
-  for (int i = 0; i < subDirectoryCount; i++)
-    subDirectories[i]->parent = this;
-  /*
+  // for (int i = 0; i < subDirectoryCount; i++)
+  //   subDirectories[i]->parent = this;
   for (int i = 0; i < rhs.subDirectoryCount; i++)
   {
     const Directory *directory = dynamic_cast<const Directory*>(rhs.subDirectories[i]); 
     
     if (directory) // test if it's a directory 
     {
-      Directory *  d1 = new Directory(//passing argumnets from rhs);
+      Directory *  d1 = new Directory(*directory);
       subDirectories += d1;
-      subDirectories[i]-> parent = this;
+      //subDirectories[i]-> parent = this;
+      d1 -> parent = this; 
     } 
     else  // if it is a file
     {
-      File * d1 = new ///
+      File * d1 = new File(*directory); ///
       subDirectories += d1;
     } // makes a new file
-  */  
-  //}
+  }
 }   // Directory copy constructor
 
 // Directory::~Directory()
@@ -69,16 +68,16 @@ Directory* Directory::cd(int argCount, const char *arguments[],
   {
     if (*subDirectories[i] == Directory(arguments[1]))
     {
-      /*
       Directory *directory = dynamic_cast<Directory*> (subDirectories[i]); 
+      
       if (!directory)
       {
-        cout << arguments[1] < ": Not a directory." << endl; 
+        cout << arguments[1] << ": Not a directory.\n"; 
         return this; 
-      }
-      */
-      if (subDirectories[i]->permissions.isPermitted(EXECUTE_PERMISSIONS, user))
-        return subDirectories[i];
+      }  // test if it's a directory 
+      
+      if (subDirectories[i]->getPermissions().isPermitted(EXECUTE_PERMISSIONS, user))
+        return (Directory *)subDirectories[i];
       else  // subdirectory doesn't have execute permissions
       {
         cout << arguments[1] << ": Permission denied.\n";
@@ -156,7 +155,7 @@ void Directory::chmod(int argCount, const char *arguments[], const char *user)
     for (j = 0; j < subDirectoryCount; j++)
       if (Directory(arguments[i]) == *subDirectories[j])
       {
-        subDirectories[j]->permissions.chmod(newPermissions, user);
+        subDirectories[j]->getPermissions().chmod(newPermissions, user);
         break;
       }  // if matched name of directory with argument
     
@@ -188,7 +187,7 @@ void Directory::chown(int argCount, const char *arguments[])
   for (j = 0; j < subDirectoryCount; j++)
      if (Directory(arguments[2]) == *subDirectories[j])
       {
-        subDirectories[j]->permissions.chown(arguments[1]);
+        subDirectories[j]->getPermissions().chown(arguments[1]);
         break;
       }  // if matched name of directory with argument
     
@@ -206,34 +205,36 @@ void Directory::cp(int argCount, const char *arguments[], const char *user)
   for (int i = 0; i < subDirectoryCount; i++)
     if (*subDirectories[i] == Directory(arguments[1]))
     {
-      if (!subDirectories[i]->permissions.isPermitted(READ_PERMISSIONS, user ))
+      if (!subDirectories[i]->getPermissions().isPermitted(READ_PERMISSIONS, user ))
       {
         cout << "cp: cannot open ‘" << arguments[1] 
              << "’ for reading: Permission denied\n";
         return;
       }  // if not allowed to read
       
-      /*
+      
       Directory *directory = dynamic_cast<Directory*> (subDirectories[i]); 
+      
       if (!directory)
       {
-        File *destinationFile = new File(subDirectories[i]); 
-        delete [] destinationFile->name; 
-        destinationFile->name = new char[strlen(arguments[2]) + 1];
-        strcpy(destinationFile->name, arguments[2]);
+        File *destinationFile = new File(arguments[2]
+          , subDirectories[i]->getPermissions()); 
+        // delete [] destinationFile->name; 
+        // destinationFile->name = new char[strlen(arguments[2]) + 1];
+        // strcpy(destinationFile->name, arguments[2]);
         subDirectories += destinationFile;
         subDirectoryCount++;
       }  // test if it's a File
       else 
       {
-      */
-        Directory *destinationDirectory = new Directory(*subDirectories[i]);
+      
+        Directory *destinationDirectory = new Directory(*(Directory *)subDirectories[i]);
         delete [] destinationDirectory->name;
         destinationDirectory->name = new char[strlen(arguments[2]) + 1];
         strcpy(destinationDirectory->name, arguments[2]);
         subDirectories += destinationDirectory;
         subDirectoryCount++;
-     // }
+      }  // makes a directory 
       
       return; 
     }  // if found source subdirectory
@@ -249,12 +250,13 @@ void Directory::ls(int argCount, const char *arguments[], const char *user)const
     cout << "usage: ls [-l]\n";
   else  // correct number of arguments
   {
-    if (permissions.isPermitted(READ_PERMISSIONS, user))
+    if (getPermissions().isPermitted(READ_PERMISSIONS, user))
     {
       if (argCount == 1)  // simple ls
       {
         for (int i = 0; i < subDirectoryCount; i++)
-          cout << subDirectories[i]->name << " ";
+          subDirectories[i]->ls(false); 
+          //cout << subDirectories[i]->name << " ";
 
         cout << "\n";
       }  // if simple ls
@@ -262,10 +264,11 @@ void Directory::ls(int argCount, const char *arguments[], const char *user)const
       {
         for (int i = 0; i < subDirectoryCount; i++)
         {
-          subDirectories[i]->permissions.print();
-          cout << ' ';
+          subDirectories[i]->ls(true); 
+          //subDirectories[i]->getPermissions().print();
+          //cout << ' ';
           //subDirectories[i]->printTime();
-          cout << subDirectories[i]->name << endl;
+          //cout << subDirectories[i]->name << "endl";
         }  // for each subdirectory
       }  // else is ls -l
     }  // if have read permissions
@@ -298,7 +301,7 @@ void Directory::mkdir(int argCount, const char *arguments[], const char *user)
     
     if (i == subDirectoryCount)
     {
-      if (permissions.isPermitted(WRITE_PERMISSIONS, user))
+      if (getPermissions().isPermitted(WRITE_PERMISSIONS, user))
       {
         subDirectories += new Directory(arguments[argPos], this, user);
         updateTime();

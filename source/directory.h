@@ -11,14 +11,14 @@ using namespace std;
 
 class Directory: public File
 {
-  List<Directory> subDirectories;
+  List<File> subDirectories;
   int subDirectoryCount;
   Directory *parent;
   bool iscpCorrectFormat(int argCount, const char *arguments[]);
 public:
   Directory(const char *nam, Directory *paren = NULL, const char *owner = NULL);
   Directory(const Directory &rhs);
-  //~Directory();
+  // ~Directory();
   Directory* cd(int argCount, const char *arguments[], const char *user);
   void chmod(int argCount, const char *arguments[], const char *user);
     // changes the permissions of the arguments
@@ -31,5 +31,6 @@ public:
   //friend ostream& operator<< (ostream &os, Directory const &rhs);
   //friend istream& operator>> (istream &is, Directory &rhs);
 };  // class Directory
+
 #endif  // DIRECTORY_H
 
