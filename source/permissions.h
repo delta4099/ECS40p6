@@ -15,6 +15,7 @@ class Permissions
   char *owner;
 public:
   Permissions();
+  Permissions(short perm, const char *own); 
   Permissions(const Permissions &rhs);
   ~Permissions();
   static short checkOctals(const char *octals);

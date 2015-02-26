@@ -5,8 +5,9 @@
 #include "permissions.h"
 #include "Time.h"
 
-using namespace std; 
+using namespace std;
 
+class Directory;
 class File 
 {
   Time time;
@@ -15,7 +16,7 @@ protected:
   char *name;
   void updateTime(); 
   void printTime() const;
-  // friend class Directory;
+  friend class Directory;
 public: 
   File(); 
   File(const File &rhs); 

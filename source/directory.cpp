@@ -8,12 +8,13 @@
 using namespace std;
 
 Directory::Directory(const char *nam, Directory *paren, const char *owner)
-  : subDirectoryCount(0), parent(paren) 
+  : File(nam, Permissions(0777, owner)), subDirectoryCount(0), parent(paren) 
  {
+  
  }  // Directory())
 
 
-Directory::Directory(const Directory &rhs) : 
+Directory::Directory(const Directory &rhs) : File(rhs),
   subDirectories(rhs.subDirectories), 
   subDirectoryCount(rhs.subDirectoryCount),  
   parent(rhs.parent) 
@@ -21,8 +22,6 @@ Directory::Directory(const Directory &rhs) :
   name = new char[strlen(rhs.name) + 1];
   strcpy(name, rhs.name);
 
-  // for (int i = 0; i < subDirectoryCount; i++)
-  //   subDirectories[i]->parent = this;
   for (int i = 0; i < rhs.subDirectoryCount; i++)
   {
     const Directory *directory = dynamic_cast<const Directory*>(rhs.subDirectories[i]); 
@@ -219,9 +218,9 @@ void Directory::cp(int argCount, const char *arguments[], const char *user)
       {
         File *destinationFile = new File(arguments[2]
           , subDirectories[i]->getPermissions()); 
-        // delete [] destinationFile->name; 
-        // destinationFile->name = new char[strlen(arguments[2]) + 1];
-        // strcpy(destinationFile->name, arguments[2]);
+        delete [] destinationFile->name; 
+        destinationFile->name = new char[strlen(arguments[2]) + 1];
+        strcpy(destinationFile->name, arguments[2]);
         subDirectories += destinationFile;
         subDirectoryCount++;
       }  // test if it's a File
@@ -255,9 +254,10 @@ void Directory::ls(int argCount, const char *arguments[], const char *user)const
       if (argCount == 1)  // simple ls
       {
         for (int i = 0; i < subDirectoryCount; i++)
+        {
           subDirectories[i]->ls(false); 
-          //cout << subDirectories[i]->name << " ";
-
+          cout << subDirectories[i]->name << " ";
+        }
         cout << "\n";
       }  // if simple ls
       else  // must be ls -l
@@ -265,10 +265,10 @@ void Directory::ls(int argCount, const char *arguments[], const char *user)const
         for (int i = 0; i < subDirectoryCount; i++)
         {
           subDirectories[i]->ls(true); 
-          //subDirectories[i]->getPermissions().print();
-          //cout << ' ';
-          //subDirectories[i]->printTime();
-          //cout << subDirectories[i]->name << "endl";
+          // subDirectories[i]->getPermissions().print();
+          // cout << ' ';
+          // subDirectories[i]->printTime();
+          // cout << subDirectories[i]->name << "endl";
         }  // for each subdirectory
       }  // else is ls -l
     }  // if have read permissions
