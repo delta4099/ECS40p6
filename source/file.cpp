@@ -16,12 +16,10 @@ File::File(const File &rhs) : permissions(rhs.permissions)
   
 }  // Copy constructor
 
-File::File(const char *nam, Permissions perm)
+File::File(const char *nam, Permissions perm) : permissions(perm)
 {
   name = new char[strlen(nam) + 1];
-  strcpy(name, nam);
-  //permissions.set(0777, owner);
-  permissions = *(new Permissions(perm)); 
+  strcpy(name, nam); 
 }  // Standard constructor
 
 File::~File()

@@ -16,22 +16,27 @@ Permissions::Permissions() : owner(NULL)
 
 Permissions::Permissions(const Permissions &rhs) : permissions(rhs.permissions)
 {
-  owner = new char[strlen(rhs.owner) + 1];
-  strcpy(owner, rhs.owner);
+  if(rhs.owner)
+  {
+    owner = new char[strlen(rhs.owner) + 1];
+    strcpy(owner, rhs.owner);
+  }
 }  // Permissions copy constructor
 
 Permissions::Permissions(short perm, const char *own)
 {
   permissions = perm & ~umask;
   
-  //if (owner)
-    //delete [] owner;
+//  if (owner)
+//    delete [] owner;
   
   if (own)
   {
     owner = new char[strlen(own) + 1];
     strcpy(owner, own);
   }
+  else 
+      owner = NULL;
 }  // new permissions constructor with permissions and owner
 
 Permissions::~Permissions()
