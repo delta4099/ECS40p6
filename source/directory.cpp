@@ -24,27 +24,24 @@ Directory::Directory(const Directory &rhs) : File(rhs),
 
   for (int i = 0; i < rhs.subDirectoryCount; i++)
   {
-    const Directory *directory = dynamic_cast<const Directory*>(rhs.subDirectories[i]); 
+    const Directory *directory = 
+      dynamic_cast<const Directory*>(rhs.subDirectories[i]); 
     
-    if (directory) // test if it's a directory 
+    if (directory) 
     {
       Directory *  d1 = new Directory(*directory);
       subDirectories += d1;
       //subDirectories[i]-> parent = this;
       d1 -> parent = this; 
-    } 
+    }  // if directory
     else  // if it is a file
     {
-      File * d1 = new File(*directory); ///
+      File * d1 = new File(*directory); 
       subDirectories += d1;
-    } // makes a new file
-  }
-}   // Directory copy constructor
+    }  // makes a new file
+  }  // for every subDirectory
+}  // Directory copy constructor
 
-// Directory::~Directory()
-// {
-//   delete [] name;
-// }  // ~Directory()
 
 Directory* Directory::cd(int argCount, const char *arguments[], 
                          const char *user)
@@ -75,7 +72,8 @@ Directory* Directory::cd(int argCount, const char *arguments[],
         return this; 
       }  // test if it's a directory 
       
-      if (subDirectories[i]->getPermissions()->isPermitted(EXECUTE_PERMISSIONS, user))
+      if (subDirectories[i]->getPermissions()->isPermitted(EXECUTE_PERMISSIONS, 
+          user))
         return directory;
       else  // subdirectory doesn't have execute permissions
       {
@@ -128,7 +126,6 @@ bool Directory:: iscpCorrectFormat(int argCount, const char *arguments[])
 void Directory::chmod(int argCount, const char *arguments[], const char *user)
 // changes the permissions of the arguments
 {
-  cout << "**TEST** reached chmod()\n";
   if (argCount < 3)
   {
     if (argCount == 1)
@@ -155,16 +152,7 @@ void Directory::chmod(int argCount, const char *arguments[], const char *user)
     for (j = 0; j < subDirectoryCount; j++)
       if (Directory(arguments[i]) == *subDirectories[j])
       {
-        cout << "**TEST** entered j for loop before changing permissions\n"
-             << "Permissions short: ";
-        subDirectories[j]->getPermissions()->print();
-        cout << endl;
-        
-        subDirectories[j]->getPermissions()->chmod(newPermissions, user);
-        
-        cout << "**TEST** supposedly changed permissions\nPermissions short: ";
-        subDirectories[j]->getPermissions()->print();
-        cout << endl;
+        subDirectories[j]->setPermissions(newPermissions, user);
         break;
       }  // if matched name of directory with argument
     
@@ -214,13 +202,13 @@ void Directory::cp(int argCount, const char *arguments[], const char *user)
   for (int i = 0; i < subDirectoryCount; i++)
     if (*subDirectories[i] == Directory(arguments[1]))
     {
-      if (!subDirectories[i]->getPermissions()->isPermitted(READ_PERMISSIONS, user ))
+      if (!subDirectories[i]->getPermissions()->isPermitted(READ_PERMISSIONS, 
+          user ))
       {
         cout << "cp: cannot open ‘" << arguments[1] 
              << "’ for reading: Permission denied\n";
         return;
       }  // if not allowed to read
-      
       
       Directory *directory = dynamic_cast<Directory*> (subDirectories[i]); 
       
@@ -231,9 +219,8 @@ void Directory::cp(int argCount, const char *arguments[], const char *user)
         subDirectories += destinationFile;
         subDirectoryCount++;
       }  // test if it's a File
-      else 
+      else // if Directory
       {
-      
         Directory *destinationDirectory = new Directory(*directory);
         delete [] destinationDirectory->name;
         destinationDirectory->name = new char[strlen(arguments[2]) + 1];
@@ -263,7 +250,8 @@ void Directory::ls(int argCount, const char *arguments[], const char *user)const
         for (int i = 0; i < subDirectoryCount; i++)
         {
           subDirectories[i]->ls(false); 
-        }
+        }  // for every subDirectory
+        
         cout << "\n";
       }  // if simple ls
       else  // must be ls -l
@@ -374,4 +362,4 @@ ostream& Directory::write(ostream &os) const
   for (int i = 0; i < subDirectoryCount; i++)
     os << *subDirectories[i];
   return os; 
-}
+}  // write()

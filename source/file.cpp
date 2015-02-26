@@ -25,7 +25,7 @@ File::File(const char *nam, Permissions perm) : permissions(perm)
 File::~File()
 {
   
-}
+}  // File destructor
 
 void File::updateTime()
 {
@@ -58,11 +58,14 @@ void File::ls(bool isLongFormat) const
     time.print(); 
     cout << name << "\n"; 
   } // prints out stuff for ls -l 
-  else 
-  {
+  else  // if not long format
     cout << name; 
-  }
 }  // ls()
+
+void File::setPermissions(short newP, const char *user)
+{
+  permissions.chmod(newP, user);
+}  // setPermissions()
 
 
 bool File::operator== (const File &rhs) const
@@ -82,7 +85,7 @@ ostream& File::write(ostream &os) const
   os << name << ' ' << time
     << ' ' << permissions << endl;
   return os; 
-}
+}  // write()
 
 ostream& operator<< (ostream &os, File const &rhs)
 {
@@ -94,8 +97,11 @@ ostream& operator<< (ostream &os, File const &rhs)
 }  // operator<<
 
 
-// istream& operator>> (istream &is, Directory &rhs)
-// {
+istream& operator>> (istream &is, File &rhs)
+{
+  char temp;
+  is >> temp; 
+  //if ( )
 //   is >> rhs.name >> rhs.time >> rhs.subDirectoryCount >> rhs.permissions; 
 //   is.ignore(10, '\n');
   
@@ -106,5 +112,5 @@ ostream& operator<< (ostream &os, File const &rhs)
 //     rhs.subDirectories += subDirectory;
 //   }  // for each subdirectory
   
-//   return is;
-// }  // operator>>
+  return is;
+}  // operator>>

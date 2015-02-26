@@ -16,6 +16,7 @@ protected:
   char *name;
   void updateTime(); 
   void printTime() const;
+  void setPermissions(short newP, const char *user);
   friend class Directory;
 public: 
   File(); 
@@ -25,6 +26,7 @@ public:
   Permissions *getPermissions() const; 
   void touch(File &rhs); 
   void read(); 
+
   virtual ostream& write(ostream &os) const; 
   void ls(bool isLongFormat) const; 
   bool operator== (const File &rhs) const;

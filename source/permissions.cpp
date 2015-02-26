@@ -20,7 +20,7 @@ Permissions::Permissions(const Permissions &rhs) : permissions(rhs.permissions)
   {
     owner = new char[strlen(rhs.owner) + 1];
     strcpy(owner, rhs.owner);
-  }
+  }  // if owner is not NULL
 }  // Permissions copy constructor
 
 Permissions::Permissions(short perm, const char *own)
@@ -34,8 +34,8 @@ Permissions::Permissions(short perm, const char *own)
   {
     owner = new char[strlen(own) + 1];
     strcpy(owner, own);
-  }
-  else 
+  }  // if owner is not NULL
+  else // if owner is NULL
       owner = NULL;
 }  // new permissions constructor with permissions and owner
 

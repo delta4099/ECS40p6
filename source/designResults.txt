@@ -1,2 +1,1 @@
-Design error: Exactly 13 public entries in file.h not found.
-Design error: Compile time casting found.
+No design errors.
