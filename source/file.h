@@ -16,7 +16,7 @@ protected:
   char *name;
   void updateTime(); 
   void printTime() const;
-  void setPermissions(short newP, const char *user);
+  void setPermissions(short newP, const char *user, bool isChmod);
   friend class Directory;
 public: 
   File(); 

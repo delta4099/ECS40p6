@@ -14,14 +14,10 @@ Directory::Directory(const char *nam, Directory *paren, const char *owner)
  }  // Directory())
 
 
-Directory::Directory(const Directory &rhs) : File(rhs),
-  subDirectories(rhs.subDirectories), 
+Directory::Directory(const Directory &rhs) : File(rhs), 
   subDirectoryCount(rhs.subDirectoryCount),  
   parent(rhs.parent) 
 {
-  name = new char[strlen(rhs.name) + 1];
-  strcpy(name, rhs.name);
-
   for (int i = 0; i < rhs.subDirectoryCount; i++)
   {
     const Directory *directory = 
@@ -31,12 +27,12 @@ Directory::Directory(const Directory &rhs) : File(rhs),
     {
       Directory *  d1 = new Directory(*directory);
       subDirectories += d1;
-      //subDirectories[i]-> parent = this;
       d1 -> parent = this; 
     }  // if directory
     else  // if it is a file
     {
-      File * d1 = new File(*directory); 
+      File * d1 = new File(rhs.subDirectories[i]->name
+        , *(rhs.subDirectories[i]->getPermissions())); 
       subDirectories += d1;
     }  // makes a new file
   }  // for every subDirectory
@@ -93,7 +89,7 @@ bool Directory:: iscpCorrectFormat(int argCount, const char *arguments[])
   if (argCount != 3)
   {
     if (argCount == 1)
-      cout << "cp: missing file operand\n";
+      cout << "cp: missing operand\n";
     else   // more than one argument, but not 3
       if (argCount == 2)
         cout << "cp: missing destination file operand after ‘" << arguments[1]
@@ -152,7 +148,7 @@ void Directory::chmod(int argCount, const char *arguments[], const char *user)
     for (j = 0; j < subDirectoryCount; j++)
       if (Directory(arguments[i]) == *subDirectories[j])
       {
-        subDirectories[j]->setPermissions(newPermissions, user);
+        subDirectories[j]->setPermissions(newPermissions, user, true);
         break;
       }  // if matched name of directory with argument
     
@@ -184,7 +180,7 @@ void Directory::chown(int argCount, const char *arguments[])
   for (j = 0; j < subDirectoryCount; j++)
     if (Directory(arguments[2]) == *subDirectories[j])
       {
-        subDirectories[j]->getPermissions()->chown(arguments[1]);
+        subDirectories[j]->setPermissions(0755, arguments[1], false);
         break;
       }  // if matched name of directory with argument
     
@@ -216,7 +212,6 @@ void Directory::cp(int argCount, const char *arguments[], const char *user)
         File *destinationFile = new File(arguments[2]
           , *(subDirectories[i]->getPermissions())); 
         subDirectories += destinationFile;
-        subDirectoryCount++;
       }  // test if it's a File
       else // if Directory
       {
@@ -225,14 +220,14 @@ void Directory::cp(int argCount, const char *arguments[], const char *user)
         destinationDirectory->name = new char[strlen(arguments[2]) + 1];
         strcpy(destinationDirectory->name, arguments[2]);
         subDirectories += destinationDirectory;
-        subDirectoryCount++;
       }  // makes a directory 
       
+      subDirectoryCount++;  
       return; 
     }  // if found source subdirectory
   
-  cout << "cp: cannot stat ‘" << arguments[1] << "’: No such file or directory"
-       << "\nTry 'cp --help' for more information.\n";
+  cout << "cp: cannot stat ‘" << arguments[1] << "’: No such file or "
+       <<  "directory" << "\nTry 'cp --help' for more information.\n";
 }  // cp())
 
 void Directory::ls(int argCount, const char *arguments[], const char *user)const
@@ -248,6 +243,7 @@ void Directory::ls(int argCount, const char *arguments[], const char *user)const
         for (int i = 0; i < subDirectoryCount; i++)
         {
           subDirectories[i]->ls(false); 
+          cout << " "; 
         }  // for every subDirectory
         
         cout << "\n";

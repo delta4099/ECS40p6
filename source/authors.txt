@@ -1,3 +1,2 @@
-ssdavis@ucdavis.edu Davis,Sean
-davis@cs.ucdavis.edu Davis,Steve
-
+mawwong@ucdavis.edu Wong, Michael
+aawho@ucdavis.edu Ho, Anthony

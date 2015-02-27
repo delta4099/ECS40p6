@@ -1,7 +1,7 @@
 Scores from p6 for Davis,Sean Davis,Steve 
 Addresses used: ssdavis@ucdavis.edu davis@cs.ucdavis.edu   
-Style: 7 out of 10
+Style: 8 out of 10
 Design: 14 out of 14
-Operation: 21 out of 26
+Operation: 29 out of 26
 Warnings (subtracted from design down to zero design score): 0
-Total: 42 out of 50.
+Total: 51 out of 50.

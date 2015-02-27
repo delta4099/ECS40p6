@@ -1,7 +1,6 @@
 Processing :  /home/mwong296/ECS40p6/source/directory.cpp
-/home/mwong296/ECS40p6/source/directory.cpp(48, 1):  Do not write function over 35 lines(Directory::cd).  [RULE_6_1_G_write_less_than_35_lines_for_function] 
-/home/mwong296/ECS40p6/source/directory.cpp(198, 1):  Do not write function over 35 lines(Directory::cp).  [RULE_6_1_G_write_less_than_35_lines_for_function] 
-/home/mwong296/ECS40p6/source/directory.cpp(234, 0):  Lines should very rarely be longer than 80 characters  [RULE_4_4_A_do_not_write_over_80_columns_per_line] 
+/home/mwong296/ECS40p6/source/directory.cpp(44, 1):  Do not write function over 35 lines(Directory::cd).  [RULE_6_1_G_write_less_than_35_lines_for_function] 
+/home/mwong296/ECS40p6/source/directory.cpp(194, 1):  Do not write function over 35 lines(Directory::cp).  [RULE_6_1_G_write_less_than_35_lines_for_function] 
 Processing :  /home/mwong296/ECS40p6/source/directory.h
 Processing :  /home/mwong296/ECS40p6/source/funix.cpp
 Processing :  /home/mwong296/ECS40p6/source/funix.h
@@ -19,14 +18,13 @@ Processing :  /home/mwong296/ECS40p6/source/file.h
 =================================== Summary Report ===================================
  ** Total Available Rules     : 52
  ** Total Applied Rules       : 34
- ** Total Violated Rules      : 2
- ** Total Errors Occurs       : 3
+ ** Total Violated Rules      : 1
+ ** Total Errors Occurs       : 2
  ** Total Analyzed Files      : 13
  ** Total Violated Files Count: 1
  ** Build Quality             : 92.31%
 
 ================================ Violated Rule Details ===============================
- -  RULE_4_4_A_do_not_write_over_80_columns_per_line rule violated : 1
  -  RULE_6_1_G_write_less_than_35_lines_for_function rule violated : 2
 
 ================================ Violated File Details ===============================

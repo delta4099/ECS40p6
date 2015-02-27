@@ -1,4 +1,4 @@
-/ # cp: missing file operand 
+/ # cp: missing operand 
 Try 'cp --help' for more information. 
 / # / # cp: ‘a’ and ‘a’ are the same file 
 / # cp: 'a' already exists. 

@@ -61,9 +61,12 @@ void File::ls(bool isLongFormat) const
     cout << name; 
 }  // ls()
 
-void File::setPermissions(short newP, const char *user)
+void File::setPermissions(short newP, const char *user, bool isChmod)
 {
-  permissions.chmod(newP, user);
+  if (isChmod)
+    permissions.chmod(newP, user);
+  else // test if it's chmod
+    permissions.chown(user); 
 }  // setPermissions()
 
 
