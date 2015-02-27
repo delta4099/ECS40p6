@@ -1,2 +1,0 @@
-directory.cpp:        return (Directory *)subDirectories[i];
-directory.cpp:        Directory *destinationDirectory = new Directory(*(Directory *)subDirectories[i]);

@@ -5,4 +5,5 @@ Try 'cp --help' for more information.
 / # / # cp: 'b' already exists. 
 / # Too many operands 
 Try 'cp --help' for more information. 
-/ # / # / # 
+/ # / # cp: cannot open ‘a’ for reading: Permission denied 
+/ # 

@@ -1,0 +1,267 @@
+1:OK
+2:
+Differences on  input2.txt
+/ # / # / # abc 
+/ # /b/ # 
+
+Seans:
+/ # / # / # a b c 
+/ # /b/ # 
+3:OK
+4:OK
+5:OK
+6:OK
+7:OK
+8:
+Differences on  input8.txt
+/ # / # / # / # abc 
+/ # rwxr-xr-x Feb a 
+rwxr-xr-x Feb b 
+rwxr-xr-x Feb c 
+/ # 
+
+Seans:
+/ # / # / # / # a b c 
+/ # rwxr-xr-x Feb a 
+rwxr-xr-x Feb b 
+rwxr-xr-x Feb c 
+/ # 
+9:OK
+10:OK
+11:OK
+12:OK
+13:
+Differences on  input13.txt
+/ # cp: missing file operand 
+Try 'cp --help' for more information. 
+/ # / # cp: ‘a’ and ‘a’ are the same file 
+/ # cp: 'a' already exists. 
+/ # / # cp: 'b' already exists. 
+/ # Too many operands 
+Try 'cp --help' for more information. 
+/ # / # cp: cannot open ‘a’ for reading: Permission denied 
+/ # 
+
+Seans:
+/ # cp: missing operand 
+Try 'cp --help' for more information. 
+/ # / # cp: ‘a’ and ‘a’ are the same file 
+/ # cp: 'a' already exists. 
+/ # / # cp: 'b' already exists. 
+/ # Too many operands 
+Try 'cp --help' for more information. 
+/ # / # cp: cannot open ‘a’ for reading: Permission denied 
+/ # 
+14:
+Differences on  input14.txt
+/ # / # / # /b/ # /b/ # /b/c/ # /b/c/ # /b/c/d/ # /b/c/d/ # /b/c/d/ # /b/c/d/ # /b/c/ # /b/ # / # / # / # /h/ # /h/c/ # /h/c/d/ # r--r-xrw- Feb e 
+r--r-xrw- Feb e 
+/h/c/d/ # /h/c/ # /h/ # / # rwxr-xr-x Feb a 
+rwxr-xr-x Feb b 
+rwxr-xr-x Feb g 
+rwxr-xr-x Feb h 
+/ # 
+
+Seans:
+/ # / # / # /b/ # /b/ # /b/c/ # /b/c/ # /b/c/d/ # /b/c/d/ # /b/c/d/ # /b/c/d/ # /b/c/ # /b/ # / # / # / # /h/ # /h/c/ # /h/c/d/ # r--r-xrw- Feb e 
+rwxr-xr-x Feb f 
+/h/c/d/ # /h/c/ # /h/ # / # rwxr-xr-x Feb a 
+rwxr-xr-x Feb b 
+rwxr-xr-x Feb g 
+rwxr-xr-x Feb h 
+/ # 
+15:
+Differences on  input15.txt
+/ # / # /a/ # /a/ # /a/ # /a/ # / # 
+
+Seans:
+/ # / # /a/ # /a/ # /a/ # /a/ # / # / # /f/ # rwxr-xr-x Feb b 
+rw-r--r-- Feb c 
+rwxr-xr-x Feb e 
+/f/ # 
+16:OK
+17:OK
+18:OK
+19:OK
+20:
+Differences on  input20.txt
+/ # / # / # / # / # rwxr-xr-x Feb a 
+rwxr-xr-x Feb b 
+/ # 
+
+Seans:
+/ # / # / # / # / # rwxr-xr-x other Feb a 
+rwxr-xr-x someone Feb b 
+/ # 
+21:OK
+22:OK
+23:
+Differences on  input23.txt
+Yours:
+/ # / # cd: b: No such file or directory 
+/ # cd: h: No such file or directory 
+/ # / # / # / # cd: c: No such file or directory 
+/ # / # 
+
+Seans:
+/ # rwxr-xr-x Feb a 
+rwxr-xr-x Feb b 
+rwxr-xr-x Feb c 
+rwxr-xr-x Feb f 
+/ # /b/ # /b/h/ # rwxrwxrwx Feb j 
+--x-w--wx second Feb k 
+r---wx-w- first Feb m 
+/b/h/ # /b/ # / # /c/ # rwxr-xr-x Feb n 
+rwxr-xr-x Feb o 
+/c/ # 
+24:
+Differences on  input24.txt
+Yours:
+/ # / # cd: b: No such file or directory 
+/ # cd: h: No such file or directory 
+/ # / # / # / # cd: c: No such file or directory 
+/ # / # 
+
+Seans:
+/ # rwxr-xr-x Feb a 
+rwxr-xr-x Feb b 
+rwxr-xr-x Feb c 
+rw-r--r-- Feb d 
+rw-r--r-- Feb e 
+rwxr-xr-x Feb f 
+/ # /b/ # /b/h/ # rwxrwxrwx Feb j 
+--x-w--wx second Feb k 
+r---wx-w- first Feb m 
+r-x--xr-- Feb r 
+rw-r--r-- who Feb s 
+rw-r--r-- Feb t 
+/b/h/ # /b/ # / # /c/ # rwxr-xr-x Feb n 
+rwxr-xr-x Feb o 
+rw-r--r-- Feb p 
+rw-r--r-- Feb q 
+/c/ # 
+25:
+Differences on  input25.txt
+Yours:
+
+DF / 
+
+DF a 
+
+DF b 
+
+DF g 
+
+DF h 
+
+DF j 
+
+DF k 
+
+DF m 
+
+DF c 
+
+DF n 
+
+DF o 
+
+DF f 
+
+
+Seans:
+
+DF / 
+
+DF a 
+
+DF b 
+
+DF g 
+
+DF h 
+
+DF j 
+
+DF k second 
+
+DF m first 
+
+DF c 
+
+DF n 
+
+DF o 
+
+DF f 
+
+26:
+Differences on  input26.txt
+Yours:
+
+DF / 
+
+DF a 
+
+DF b 
+
+DF g 
+
+DF h 
+
+DF j 
+
+DF k 
+
+DF m 
+
+F r 
+F s 
+F t 
+DF c 
+
+DF n 
+
+DF o 
+
+F p 
+F q 
+F d 
+F e 
+DF f 
+
+
+Seans:
+
+DF / 
+
+DF a 
+
+DF b 
+
+DF g 
+
+DF h 
+
+DF j 
+
+DF k second 
+
+DF m first 
+
+F r 
+F s 
+F t 
+DF c 
+
+DF n 
+
+DF o 
+
+F p 
+F q 
+F d 
+F e 
+DF f 
+
+27  (Extra credit):OK

@@ -1,5 +1,4 @@
-/ # touch: Command not found. 
-/ # chmod: cannot access ‘a’: No such file or directory 
-/ # chmod: cannot access ‘b’: No such file or directory 
-/ # chmod: cannot access ‘c’: No such file or directory 
-/ # / # 
+/ # / # / # / # / # -w--wxr-- root Feb a 
+r--r-xrw- root Feb b 
+rwxrwx--x root Feb c 
+/ # 

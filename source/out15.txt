@@ -1,4 +1,1 @@
-/ # / # /a/ # /a/ # touch: Command not found. 
-/a/ # /a/ # / # / # /f/ # rwxr-xr-x Feb b 
-rwxr-xr-x Feb b 
-/f/ # 
+/ # / # /a/ # /a/ # /a/ # /a/ # / # 
