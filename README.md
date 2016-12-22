@@ -1,4 +1,4 @@
-# ECS40p6
+# myshell
 
 myshell (also called funix) is a shell with the following commands: 
 
@@ -27,9 +27,9 @@ touch
 ### Compile from source
 
 ```
-git clone https://github.com/michael-a-wong/ECS40p6.git
+git clone https://github.com/michael-a-wong/myshell.git
 
-cd /ECS40p6/source
+cd /myshell/source
 
 make clean
 
